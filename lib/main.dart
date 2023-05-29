@@ -4,7 +4,7 @@ import 'package:chat_app/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-//global object for accessing device screen size, This is use for media query. 
+//global object for accessing device screen size, This is use for media query.
 late Size mq;
 
 void main() {
@@ -43,6 +43,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// Initialize Firebase to your project
 // _initializeFirebase() async {
 //   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
