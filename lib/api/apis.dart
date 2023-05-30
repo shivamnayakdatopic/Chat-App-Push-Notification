@@ -16,7 +16,7 @@ class APIs {
 //   // for accessing firebase storage
   // static FirebaseStorage storage = FirebaseStorage.instance;
 
-  // for storing self information
+  // for storing self information. When you create your account
   static ChatUser me = ChatUser(
       id: user.uid,
       name: user.displayName.toString(),
@@ -136,7 +136,7 @@ class APIs {
 //     });
 //   }
 
-  // for creating a new user
+  // for creating a new user. If any new user create there account.
   static Future<void> createUser() async {
     // For accessing current time.
     final time = DateTime.now().millisecondsSinceEpoch.toString();

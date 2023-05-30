@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:chat_app/api/apis.dart';
 import 'package:chat_app/models/chart_user.dart';
+import 'package:chat_app/screens/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -106,14 +107,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       : Icons.search)),
 
               //more features button
-              // IconButton(
-              //     onPressed: () {
-              //       Navigator.push(
-              //           context,
-              //           MaterialPageRoute(
-              //               builder: (_) => ProfileScreen(user: APIs.me)));
-              //     },
-              //     icon: const Icon(Icons.more_vert))
+              IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => ProfileScreen(user: APIs.me)));
+                  },
+                  icon: const Icon(Icons.account_circle_sharp))
             ],
           ),
 
