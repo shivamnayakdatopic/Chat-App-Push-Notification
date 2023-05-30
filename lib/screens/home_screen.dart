@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:chat_app/api/apis.dart';
+import 'package:chat_app/models/chart_user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,10 +17,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   // for storing all users
-  // List<ChatUser> _list = [];
+  List<ChatUser> _list = [];
 
   // for storing searched items
-  // final List<ChatUser> _searchList = [];
+  final List<ChatUser> _searchList = [];
   // for storing search status
   bool _isSearching = false;
 
@@ -78,17 +79,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     //when search text changes then updated search list
                     onChanged: (val) {
                       //search logic
-                      // _searchList.clear();
+                      _searchList.clear();
 
-                      // for (var i in _list) {
-                      //   if (i.name.toLowerCase().contains(val.toLowerCase()) ||
-                      //       i.email.toLowerCase().contains(val.toLowerCase())) {
-                      //     _searchList.add(i);
-                      //     setState(() {
-                      //       _searchList;
-                      //     });
-                      //   }
-                      // }
+                      for (var i in _list) {
+                        if (i.name.toLowerCase().contains(val.toLowerCase()) ||
+                            i.email.toLowerCase().contains(val.toLowerCase())) {
+                          _searchList.add(i);
+                          setState(() {
+                            _searchList;
+                          });
+                        }
+                      }
                     },
                   )
                 : const Text('We Chat'),
@@ -151,8 +152,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         //if data is loading
                         case ConnectionState.waiting:
                         case ConnectionState.none:
-                        // return const Center(
-                        //     child: CircularProgressIndicator());
+                        return const Center(
+                            child: CircularProgressIndicator());
 
                         //if some or all data is loaded then show it
                         case ConnectionState.active:
