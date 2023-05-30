@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:chat_app/models/chart_user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,22 +14,22 @@ class APIs {
   static FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 //   // for accessing firebase storage
-//   static FirebaseStorage storage = FirebaseStorage.instance;
+  // static FirebaseStorage storage = FirebaseStorage.instance;
 
-//   // for storing self information
-//   static ChatUser me = ChatUser(
-//       id: user.uid,
-//       name: user.displayName.toString(),
-//       email: user.email.toString(),
-//       about: "Hey, I'm using We Chat!",
-//       image: user.photoURL.toString(),
-//       createdAt: '',
-//       isOnline: false,
-//       lastActive: '',
-//       pushToken: '');
+  // for storing self information
+  static ChatUser me = ChatUser(
+      id: user.uid,
+      name: user.displayName.toString(),
+      email: user.email.toString(),
+      about: "Hey, I'm using We Chat!",
+      image: user.photoURL.toString(),
+      createdAt: '',
+      isOnline: false,
+      lastActive: '',
+      pushToken: '');
 
-//   // to return current user
-//   static User get user => auth.currentUser!;
+  // to return current user
+  static User get user => auth.currentUser!;
 
 //   // for accessing firebase messaging (Push Notification)
 //   static FirebaseMessaging fMessaging = FirebaseMessaging.instance;
@@ -85,10 +86,10 @@ class APIs {
 //     }
 //   }
 
-//   // for checking if user exists or not?
-//   static Future<bool> userExists() async {
-//     return (await firestore.collection('users').doc(user.uid).get()).exists;
-//   }
+  // for checking if user exists or not?
+  static Future<bool> userExists() async {
+    return (await firestore.collection('users').doc(user.uid).get()).exists;
+  }
 
 //   // for adding an chat user for our conversation
 //   static Future<bool> addChatUser(String email) async {
@@ -135,26 +136,27 @@ class APIs {
 //     });
 //   }
 
-//   // for creating a new user
-//   static Future<void> createUser() async {
-//     final time = DateTime.now().millisecondsSinceEpoch.toString();
+  // for creating a new user
+  static Future<void> createUser() async {
+    // For accessing current time.
+    final time = DateTime.now().millisecondsSinceEpoch.toString();
 
-//     final chatUser = ChatUser(
-//         id: user.uid,
-//         name: user.displayName.toString(),
-//         email: user.email.toString(),
-//         about: "Hey, I'm using We Chat!",
-//         image: user.photoURL.toString(),
-//         createdAt: time,
-//         isOnline: false,
-//         lastActive: time,
-//         pushToken: '');
+    final chatUser = ChatUser(
+        id: user.uid,
+        name: user.displayName.toString(),
+        email: user.email.toString(),
+        about: "Hey, I'm using We Chat!",
+        image: user.photoURL.toString(),
+        createdAt: time,
+        isOnline: false,
+        lastActive: time,
+        pushToken: '');
 
-//     return await firestore
-//         .collection('users')
-//         .doc(user.uid)
-//         .set(chatUser.toJson());
-//   }
+    return await firestore
+        .collection('users')
+        .doc(user.uid)
+        .set(chatUser.toJson());
+  }
 
 //   // for getting id's of known users from firestore database
 //   static Stream<QuerySnapshot<Map<String, dynamic>>> getMyUsersId() {

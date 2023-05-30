@@ -42,22 +42,21 @@ class _LoginScreenState extends State<LoginScreen> {
         log('\nUser: ${user.user}');
         log('\nUserAdditionalInfo: ${user.additionalUserInfo}');
 
-        // if ((await APIs.userExists())) {
-        //   Navigator.pushReplacement(
-        //       context, MaterialPageRoute(builder: (_) => const HomeScreen()));
-        // } else {
-        //   await APIs.createUser().then((value) {
-        //     Navigator.pushReplacement(
-        //         context, MaterialPageRoute(builder: (_) => const HomeScreen()));
-        //   });
-        // }
+        if ((await APIs.userExists())) {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+        } else {
+          await APIs.createUser().then((value) {
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+          });
+        }
       }
     });
   }
 
   Future<UserCredential?> _signInWithGoogle() async {
     try {
-
       // This is use if user are not connected with internet
       await InternetAddress.lookup('google.com');
       // Trigger the authentication flow
@@ -76,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
       // Once signed in, return the UserCredential
       return await APIs.auth.signInWithCredential(credential);
     } catch (e) {
-      // log we are using for print anything. 
+      // log we are using for print anything.
       log('\n_signInWithGoogle: $e');
       Dialogs.showSnackbar(context, 'Something Went Wrong (Check Internet!)');
       return null;
