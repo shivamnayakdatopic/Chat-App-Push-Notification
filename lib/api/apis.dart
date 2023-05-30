@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -8,8 +9,8 @@ class APIs {
   // for authentication, create firebase authentication instance. and Store in variable.
   static FirebaseAuth auth = FirebaseAuth.instance;
 
-//   // for accessing cloud firestore database
-//   static FirebaseFirestore firestore = FirebaseFirestore.instance;
+  // for accessing cloud firestore database
+  static FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 //   // for accessing firebase storage
 //   static FirebaseStorage storage = FirebaseStorage.instance;
