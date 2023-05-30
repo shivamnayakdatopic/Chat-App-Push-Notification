@@ -1,5 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:chat_app/api/apis.dart';
+import 'package:chat_app/helper/dialogs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -30,27 +32,27 @@ class _LoginScreenState extends State<LoginScreen> {
   // handles google login button click
   _handleGoogleBtnClick() {
     //for showing progress bar
-    // Dialogs.showProgressBar(context);
+    Dialogs.showProgressBar(context);
 
-    // _signInWithGoogle().then((user) async {
-    //   //for hiding progress bar
-    //   Navigator.pop(context);
+    _signInWithGoogle().then((user) async {
+      //for hiding progress bar
+      Navigator.pop(context);
 
-    //   if (user != null) {
-    //     log('\nUser: ${user.user}');
-    //     log('\nUserAdditionalInfo: ${user.additionalUserInfo}');
+      if (user != null) {
+        log('\nUser: ${user.user}');
+        log('\nUserAdditionalInfo: ${user.additionalUserInfo}');
 
-    //     if ((await APIs.userExists())) {
-    //       Navigator.pushReplacement(
-    //           context, MaterialPageRoute(builder: (_) => const HomeScreen()));
-    //     } else {
-    //       await APIs.createUser().then((value) {
-    //         Navigator.pushReplacement(
-    //             context, MaterialPageRoute(builder: (_) => const HomeScreen()));
-    //       });
-    //     }
-    //   }
-    // });
+        // if ((await APIs.userExists())) {
+        //   Navigator.pushReplacement(
+        //       context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+        // } else {
+        //   await APIs.createUser().then((value) {
+        //     Navigator.pushReplacement(
+        //         context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+        //   });
+        // }
+      }
+    });
   }
 
   Future<UserCredential?> _signInWithGoogle() async {
@@ -72,11 +74,11 @@ class _LoginScreenState extends State<LoginScreen> {
       );
 
       // Once signed in, return the UserCredential
-      // return await APIs.auth.signInWithCredential(credential);
+      return await APIs.auth.signInWithCredential(credential);
     } catch (e) {
       // log we are using for print anything. 
       log('\n_signInWithGoogle: $e');
-      // Dialogs.showSnackbar(context, 'Something Went Wrong (Check Internet!)');
+      Dialogs.showSnackbar(context, 'Something Went Wrong (Check Internet!)');
       return null;
     }
   }
@@ -91,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     //initializing media query (for getting device screen size)
-    // mq = MediaQuery.of(context).size;
+    mq = MediaQuery.of(context).size;
 
     return Scaffold(
       //app bar

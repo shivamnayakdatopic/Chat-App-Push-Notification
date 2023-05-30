@@ -1,5 +1,8 @@
 import 'dart:developer';
 
+import 'package:chat_app/api/apis.dart';
+import 'package:chat_app/screens/auth/login_screen.dart';
+import 'package:chat_app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -24,16 +27,16 @@ class _SplashScreenState extends State<SplashScreen> {
           systemNavigationBarColor: Colors.white,
           statusBarColor: Colors.white));
 
-      // if (APIs.auth.currentUser != null) {
-      //   log('\nUser: ${APIs.auth.currentUser}');
-      //   //navigate to home screen
-      //   Navigator.pushReplacement(
-      //       context, MaterialPageRoute(builder: (_) => const HomeScreen()));
-      // } else {
-      //   //navigate to login screen
-      //   Navigator.pushReplacement(
-      //       context, MaterialPageRoute(builder: (_) => const LoginScreen()));
-      // }
+      if (APIs.auth.currentUser != null) {
+        log('\nUser: ${APIs.auth.currentUser}');
+        //navigate to home screen
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+      } else {
+        //navigate to login screen
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (_) => const LoginScreen()));
+      }
     });
   }
 
