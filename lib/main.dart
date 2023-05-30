@@ -1,6 +1,8 @@
 import 'dart:developer';
 
+import 'package:chat_app/firebase_options.dart';
 import 'package:chat_app/screens/splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -8,16 +10,17 @@ import 'package:flutter/services.dart';
 late Size mq;
 
 void main() {
+  // we have to bind our app otherwise show error.
   WidgetsFlutterBinding.ensureInitialized();
 
-  //enter full-screen
+  //enter in full-screen your app
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
 
-  //for setting orientation to portrait only
+  //for setting orientation to portrait only.. we are using .then because of future return.
   SystemChrome.setPreferredOrientations(
           [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
       .then((value) {
-    // _initializeFirebase();
+    _initializeFirebase();
     runApp(const MyApp());
   });
 }
@@ -44,13 +47,14 @@ class MyApp extends StatelessWidget {
 }
 
 // Initialize Firebase to your project
-// _initializeFirebase() async {
-//   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-//   var result = await FlutterNotificationChannel.registerNotificationChannel(
-//       description: 'For Showing Message Notification',
-//       id: 'chats',
-//       importance: NotificationImportance.IMPORTANCE_HIGH,
-//       name: 'Chats');
-//   log('\nNotification Channel Result: $result');
-// }
+_initializeFirebase() async {
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // var result = await FlutterNotificationChannel.registerNotificationChannel(
+  //     description: 'For Showing Message Notification',
+  //     id: 'chats',
+  //     importance: NotificationImportance.IMPORTANCE_HIGH,
+  //     name: 'Chats');
+  // log('\nNotification Channel Result: $result');
+}
