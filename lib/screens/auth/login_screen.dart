@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import '../../main.dart';
 import '../home_screen.dart';
 
@@ -51,36 +53,40 @@ class _LoginScreenState extends State<LoginScreen> {
     // });
   }
 
-  // Future<UserCredential?> _signInWithGoogle() async {
-  //   try {
-  //     await InternetAddress.lookup('google.com');
-  //     // Trigger the authentication flow
-  //     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  Future<UserCredential?> _signInWithGoogle() async {
+    try {
 
-  //     // Obtain the auth details from the request
-  //     final GoogleSignInAuthentication? googleAuth =
-  //         await googleUser?.authentication;
+      // This is use if user are not connected with internet
+      await InternetAddress.lookup('google.com');
+      // Trigger the authentication flow
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-  //     // Create a new credential
-  //     final credential = GoogleAuthProvider.credential(
-  //       accessToken: googleAuth?.accessToken,
-  //       idToken: googleAuth?.idToken,
-  //     );
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
 
-  //     // Once signed in, return the UserCredential
-  //     return await APIs.auth.signInWithCredential(credential);
-  //   } catch (e) {
-  //     log('\n_signInWithGoogle: $e');
-  //     Dialogs.showSnackbar(context, 'Something Went Wrong (Check Internet!)');
-  //     return null;
-  //   }
-  // }
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
 
-  //sign out function
-  // _signOut() async {
-  //   await FirebaseAuth.instance.signOut();
-  //   await GoogleSignIn().signOut();
-  // }
+      // Once signed in, return the UserCredential
+      // return await APIs.auth.signInWithCredential(credential);
+    } catch (e) {
+      // log we are using for print anything. 
+      log('\n_signInWithGoogle: $e');
+      // Dialogs.showSnackbar(context, 'Something Went Wrong (Check Internet!)');
+      return null;
+    }
+  }
+
+  // For sign out function
+
+  _signOut() async {
+    await FirebaseAuth.instance.signOut();
+    await GoogleSignIn().signOut();
+  }
 
   @override
   Widget build(BuildContext context) {
