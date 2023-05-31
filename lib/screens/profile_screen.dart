@@ -242,6 +242,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         final ImagePicker picker = ImagePicker();
 
                         // Pick an image
+                        // we are use imageQuality for reduce that image size.
                         final XFile? image = await picker.pickImage(
                             source: ImageSource.gallery, imageQuality: 80);
                         if (image != null) {
@@ -250,7 +251,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             _image = image.path;
                           });
 
-                          // APIs.updateProfilePicture(File(_image!));
+                          APIs.updateProfilePicture(File(_image!));
                           // for hiding bottom sheet or dialogs
                           Navigator.pop(context);
                         }
@@ -270,12 +271,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         final XFile? image = await picker.pickImage(
                             source: ImageSource.camera, imageQuality: 80);
                         if (image != null) {
-                          log('Image Path: ${image.path}'); 
+                          log('Image Path: ${image.path}');
                           setState(() {
                             _image = image.path;
                           });
 
-                          // APIs.updateProfilePicture(File(_image!));
+                          APIs.updateProfilePicture(File(_image!));
                           // for hiding bottom sheet or dialogs
                           Navigator.pop(context);
                         }
