@@ -13,6 +13,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:image_picker/image_picker.dart';
 
 //profile screen -- to show signed in user info
 class ProfileScreen extends StatefulWidget {
@@ -238,21 +239,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           shape: const CircleBorder(),
                           fixedSize: Size(mq.width * .3, mq.height * .15)),
                       onPressed: () async {
-                        // final ImagePicker picker = ImagePicker();
+                        final ImagePicker picker = ImagePicker();
 
-                        // // Pick an image
-                        // final XFile? image = await picker.pickImage(
-                        //     source: ImageSource.gallery, imageQuality: 80);
-                        // if (image != null) {
-                        //   log('Image Path: ${image.path}');
-                        //   setState(() {
-                        //     _image = image.path;
-                        //   });
+                        // Pick an image
+                        final XFile? image = await picker.pickImage(
+                            source: ImageSource.gallery, imageQuality: 80);
+                        if (image != null) {
+                          log('Image Path: ${image.path}');
+                          setState(() {
+                            _image = image.path;
+                          });
 
-                        //   APIs.updateProfilePicture(File(_image!));
-                        //   // for hiding bottom sheet
-                        //   Navigator.pop(context);
-                        // }
+                          // APIs.updateProfilePicture(File(_image!));
+                          // for hiding bottom sheet or dialogs
+                          Navigator.pop(context);
+                        }
                       },
                       child: Image.asset('images/add_image.png')),
 
@@ -263,21 +264,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           shape: const CircleBorder(),
                           fixedSize: Size(mq.width * .3, mq.height * .15)),
                       onPressed: () async {
-                        // final ImagePicker picker = ImagePicker();
+                        final ImagePicker picker = ImagePicker();
 
-                        // // Pick an image
-                        // final XFile? image = await picker.pickImage(
-                        //     source: ImageSource.camera, imageQuality: 80);
-                        // if (image != null) {
-                        //   log('Image Path: ${image.path}');
-                        //   setState(() {
-                        //     _image = image.path;
-                        //   });
+                        // Pick an image
+                        final XFile? image = await picker.pickImage(
+                            source: ImageSource.camera, imageQuality: 80);
+                        if (image != null) {
+                          log('Image Path: ${image.path}'); 
+                          setState(() {
+                            _image = image.path;
+                          });
 
-                        //   APIs.updateProfilePicture(File(_image!));
-                        //   // for hiding bottom sheet
-                        //   Navigator.pop(context);
-                        // }
+                          // APIs.updateProfilePicture(File(_image!));
+                          // for hiding bottom sheet or dialogs
+                          Navigator.pop(context);
+                        }
                       },
                       child: Image.asset('images/camera.png')),
                 ],
