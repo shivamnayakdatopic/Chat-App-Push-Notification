@@ -120,21 +120,21 @@ class APIs {
 //     }
 //   }
 
-//   // for getting current user info
-//   static Future<void> getSelfInfo() async {
-//     await firestore.collection('users').doc(user.uid).get().then((user) async {
-//       if (user.exists) {
-//         me = ChatUser.fromJson(user.data()!);
-//         await getFirebaseMessagingToken();
+  // for getting current user info
+  static Future<void> getSelfInfo() async {
+    await firestore.collection('users').doc(user.uid).get().then((user) async {
+      if (user.exists) {
+        me = ChatUser.fromJson(user.data()!);
+        // await getFirebaseMessagingToken();
 
-//         //for setting user status to active
-//         APIs.updateActiveStatus(true);
-//         log('My Data: ${user.data()}');
-//       } else {
-//         await createUser().then((value) => getSelfInfo());
-//       }
-//     });
-//   }
+        //for setting user status to active
+        // APIs.updateActiveStatus(true);
+        log('My Data: ${user.data()}');
+      } else {
+        await createUser().then((value) => getSelfInfo());
+      }
+    });
+  }
 
   // for creating a new user. If any new user create there account.
   static Future<void> createUser() async {
@@ -167,20 +167,21 @@ class APIs {
 //         .snapshots();
 //   }
 
-//   // for getting all users from firestore database
-//   static Stream<QuerySnapshot<Map<String, dynamic>>> getAllUsers(
-//       List<String> userIds) {
-//     log('\nUserIds: $userIds');
+  // for getting all users from firestore database
+  // The type QuerySnapshot<Map<String, dynamic>> represents a snapshot of the results from a Firestore query. we can also use other type
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllUsers(
+      List<String> userIds) {
+    log('\nUserIds: $userIds');
 
-//     return firestore
-//         .collection('users')
-//         .where('id',
-//             whereIn: userIds.isEmpty
-//                 ? ['']
-//                 : userIds) //because empty list throws an error
-//         // .where('id', isNotEqualTo: user.uid)
-//         .snapshots();
-//   }
+    return firestore
+        .collection('users')
+        .where('id',
+            whereIn: userIds.isEmpty
+                ? ['']
+                : userIds) //because empty list throws an error
+        // .where('id', isNotEqualTo: user.uid)
+        .snapshots();
+  }
 
 //   // for adding an user to my user when first message is send
 //   static Future<void> sendFirstMessage(
@@ -193,13 +194,13 @@ class APIs {
 //         .set({}).then((value) => sendMessage(chatUser, msg, type));
 //   }
 
-//   // for updating user information
-//   static Future<void> updateUserInfo() async {
-//     await firestore.collection('users').doc(user.uid).update({
-//       'name': me.name,
-//       'about': me.about,
-//     });
-//   }
+  // for updating user information
+  static Future<void> updateUserInfo() async {
+    await firestore.collection('users').doc(user.uid).update({
+      'name': me.name,
+      'about': me.about,
+    });
+  }
 
 //   // update profile picture of user
 //   static Future<void> updateProfilePicture(File file) async {
