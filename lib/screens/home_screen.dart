@@ -7,7 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
 //home screen -- where all available contacts are shown
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -153,39 +152,39 @@ class _HomeScreenState extends State<HomeScreen> {
                         //if data is loading
                         case ConnectionState.waiting:
                         case ConnectionState.none:
-                        return const Center(
-                            child: CircularProgressIndicator());
+                          return const Center(
+                              child: CircularProgressIndicator());
 
                         //if some or all data is loaded then show it
                         case ConnectionState.active:
                         case ConnectionState.done:
-                          // final data = snapshot.data?.docs;
-                          // _list = data
-                          //         ?.map((e) => ChatUser.fromJson(e.data()))
-                          //         .toList() ??
-                          //     [];
+                        // final data = snapshot.data?.docs;
+                        // _list = data
+                        //         ?.map((e) => ChatUser.fromJson(e.data()))
+                        //         .toList() ??
+                        //     [];
 
-                          // if (_list.isNotEmpty) {
-                          //   return ListView.builder(
-                          //       itemCount: _isSearching
-                          //           ? _searchList.length
-                          //           : _list.length,
-                          //       padding: EdgeInsets.only(top: mq.height * .01),
-                          //       physics: const BouncingScrollPhysics(),
-                          //       itemBuilder: (context, index) {
-                          //         return ChatUserCard(
-                          //             user: _isSearching
-                          //                 ? _searchList[index]
-                          //                 : _list[index]);
-                          //       });
-                          // } else {
-                          //   return const Center(
-                          //     child: Text('No Connections Found!',
-                          //         style: TextStyle(fontSize: 20)),
-                          //   );
-                          // }
+                        // if (_list.isNotEmpty) {
+                        //   return ListView.builder(
+                        //       itemCount: _isSearching
+                        //           ? _searchList.length
+                        //           : _list.length,
+                        //       padding: EdgeInsets.only(top: mq.height * .01),
+                        //       physics: const BouncingScrollPhysics(),
+                        //       itemBuilder: (context, index) {
+                        //         return ChatUserCard(
+                        //             user: _isSearching
+                        //                 ? _searchList[index]
+                        //                 : _list[index]);
+                        //       });
+                        // } else {
+                        //   return const Center(
+                        //     child: Text('No Connections Found!',
+                        //         style: TextStyle(fontSize: 20)),
+                        //   );
+                        // }
                       }
-                    return Container();
+                      return Container();
                     },
                   );
               }
