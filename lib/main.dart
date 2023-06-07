@@ -32,7 +32,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Chat App',
-        debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner:
+            false, // This is for remove Debug check banner.
         theme: ThemeData(
             appBarTheme: const AppBarTheme(
           centerTitle: true,
