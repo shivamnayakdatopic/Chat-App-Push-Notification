@@ -80,7 +80,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
                           if (_list.isNotEmpty) {
                             return ListView.builder(
-                                reverse: true,
+                                reverse:
+                                    true, //This is use, show last message on screen not first.
                                 itemCount: _list.length,
                                 padding: EdgeInsets.only(top: mq.height * .01),
                                 physics: const BouncingScrollPhysics(),
@@ -253,7 +254,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         for (var i in images) {
                           log('Image Path: ${i.path}');
                           setState(() => _isUploading = true);
-                          // await APIs.sendChatImage(widget.user, File(i.path));
+                          await APIs.sendChatImage(widget.user, File(i.path));
                           setState(() => _isUploading = false);
                         }
                       },
@@ -272,8 +273,8 @@ class _ChatScreenState extends State<ChatScreen> {
                           log('Image Path: ${image.path}');
                           setState(() => _isUploading = true);
 
-                          // await APIs.sendChatImage(
-                          //     widget.user, File(image.path));
+                          await APIs.sendChatImage(
+                              widget.user, File(image.path));
                           setState(() => _isUploading = false);
                         }
                       },
@@ -288,28 +289,28 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
 
           //send message button
-          // MaterialButton(
-          //   onPressed: () {
-          //     if (_textController.text.isNotEmpty) {
-          //       if (_list.isEmpty) {
-          //         //on first message (add user to my_user collection of chat user)
-          //         APIs.sendFirstMessage(
-          //             widget.user, _textController.text, Type.text);
-          //       } else {
-          //         //simply send message
-          //         APIs.sendMessage(
-          //             widget.user, _textController.text, Type.text);
-          //       }
-          //       _textController.text = '';
-          //     }
-          //   },
-          //   minWidth: 0,
-          //   padding:
-          //       const EdgeInsets.only(top: 10, bottom: 10, right: 5, left: 10),
-          //   shape: const CircleBorder(),
-          //   color: Colors.green,
-          //   child: const Icon(Icons.send, color: Colors.white, size: 28),
-          // )
+          MaterialButton(
+            onPressed: () {
+              if (_textController.text.isNotEmpty) {
+                if (_list.isEmpty) {
+                  //on first message (add user to my_user collection of chat user)
+                  // APIs.sendFirstMessage(
+                  //     widget.user, _textController.text, Type.text);
+                } else {
+                  //simply send message
+                  APIs.sendMessage(
+                      widget.user, _textController.text, Type.text);
+                }
+                _textController.text = '';
+              }
+            },
+            minWidth: 0,
+            padding:
+                const EdgeInsets.only(top: 10, bottom: 10, right: 5, left: 10),
+            shape: const CircleBorder(),
+            color: Colors.green,
+            child: const Icon(Icons.send, color: Colors.white, size: 28),
+          )
         ],
       ),
     );
