@@ -4,6 +4,7 @@ import 'package:chat_app/main.dart';
 import 'package:chat_app/models/chart_user.dart';
 import 'package:chat_app/models/message.dart';
 import 'package:chat_app/screens/chat_screen.dart';
+import 'package:chat_app/widgets/dialogs/profile_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -50,9 +51,9 @@ class _ChatUserCardState extends State<ChatUserCard> {
                 //user profile picture
                 leading: InkWell(
                   onTap: () {
-                    // showDialog(
-                    //     context: context,
-                    //     builder: (_) => ProfileDialog(user: widget.user));
+                    showDialog(
+                        context: context,
+                        builder: (_) => ProfileDialog(user: widget.user));
                   },
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(mq.height * .03),
