@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:chat_app/models/chart_user.dart';
 import 'package:chat_app/models/message.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -33,30 +34,30 @@ class APIs {
   // to return current user
   static User get user => auth.currentUser!;
 
-//   // for accessing firebase messaging (Push Notification)
-//   static FirebaseMessaging fMessaging = FirebaseMessaging.instance;
+  // for accessing firebase messaging (Push Notification)
+  static FirebaseMessaging fMessaging = FirebaseMessaging.instance;
 
-//   // for getting firebase messaging token
-//   static Future<void> getFirebaseMessagingToken() async {
-//     await fMessaging.requestPermission();
+  // for getting firebase messaging token
+  static Future<void> getFirebaseMessagingToken() async {
+    await fMessaging.requestPermission();
 
-//     await fMessaging.getToken().then((t) {
-//       if (t != null) {
-//         me.pushToken = t;
-//         log('Push Token: $t');
-//       }
-//     });
+    await fMessaging.getToken().then((token) {
+      if (token != null) {
+        me.pushToken = token;
+        print("Push Token-- $token");
+      }
+    });
 
-//     // for handling foreground messages
-//     // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-//     //   log('Got a message whilst in the foreground!');
-//     //   log('Message data: ${message.data}');
+    // for handling foreground messages
+    // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    //   log('Got a message whilst in the foreground!');
+    //   log('Message data: ${message.data}');
 
-//     //   if (message.notification != null) {
-//     //     log('Message also contained a notification: ${message.notification}');
-//     //   }
-//     // });
-//   }
+    //   if (message.notification != null) {
+    //     log('Message also contained a notification: ${message.notification}');
+    //   }
+    // });
+  }
 
 //   // for sending push notification
 //   static Future<void> sendPushNotification(
@@ -127,7 +128,7 @@ class APIs {
     await firestore.collection('users').doc(user.uid).get().then((user) async {
       if (user.exists) {
         me = ChatUser.fromJson(user.data()!);
-        // await getFirebaseMessagingToken();
+        await getFirebaseMessagingToken();
 
         //for setting user status to active
         APIs.updateActiveStatus(true);
