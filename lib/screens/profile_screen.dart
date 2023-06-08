@@ -47,7 +47,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   //for showing progress dialog
                   Dialogs.showProgressBar(context);
 
-                  // await APIs.updateActiveStatus(false);
+                  await APIs.updateActiveStatus(false);
 
                   //sign out from app
                   await APIs.auth.signOut().then((value) async {

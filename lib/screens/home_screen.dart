@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     APIs.getSelfInfo();
 
-    //for updating user active status according to lifecycle events , On Realtime.
+    //for updating user active status according to lifecycle events , On Realtime. 
     //resume -- active or online
     //pause  -- inactive or offline
     SystemChannels.lifecycle.setMessageHandler((message) {
@@ -248,14 +248,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     onPressed: () async {
                       //hide alert dialog
                       Navigator.pop(context);
-                      // if (email.isNotEmpty) {
-                      //   await APIs.addChatUser(email).then((value) {
-                      //     if (!value) {
-                      //       Dialogs.showSnackbar(
-                      //           context, 'User does not Exists!');
-                      //     }
-                      //   });
-                      // }
+                      if (email.isNotEmpty) {
+                        await APIs.addChatUser(email).then((value) {
+                          if (!value) {
+                            Dialogs.showSnackbar(
+                                context, 'User does not Exists!');
+                          }
+                        });
+                      }
                     },
                     child: const Text(
                       'Add',

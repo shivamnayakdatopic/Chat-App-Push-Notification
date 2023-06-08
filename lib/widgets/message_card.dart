@@ -251,10 +251,10 @@ class _MessageCardState extends State<MessageCard> {
                         color: Colors.red, size: 26),
                     name: 'Delete Message',
                     onTap: () async {
-                      // await APIs.deleteMessage(widget.message).then((value) {
-                      //   //for hiding bottom sheet
-                      //   Navigator.pop(context);
-                      // });
+                      await APIs.deleteMessage(widget.message).then((value) {
+                        //for hiding bottom sheet
+                        Navigator.pop(context);
+                      });
                     }),
 
               //separator or divider
@@ -265,19 +265,19 @@ class _MessageCardState extends State<MessageCard> {
               ),
 
               //sent time
-              // _OptionItem(
-              //     icon: const Icon(Icons.remove_red_eye, color: Colors.blue),
-              //     name:
-              //         'Sent At: ${MyDateUtil.getMessageTime(context: context, time: widget.message.sent)}',
-              //     onTap: () {}),
+              _OptionItem(
+                  icon: const Icon(Icons.remove_red_eye, color: Colors.blue),
+                  name:
+                      'Sent At: ${MyDateUtil.getMessageTime(context: context, time: widget.message.sent)}',
+                  onTap: () {}),
 
-              // //read time
-              // _OptionItem(
-              //     icon: const Icon(Icons.remove_red_eye, color: Colors.green),
-              //     name: widget.message.read.isEmpty
-              //         ? 'Read At: Not seen yet'
-              //         : 'Read At: ${MyDateUtil.getMessageTime(context: context, time: widget.message.read)}',
-              //     onTap: () {}),
+              //read time
+              _OptionItem(
+                  icon: const Icon(Icons.remove_red_eye, color: Colors.green),
+                  name: widget.message.read.isEmpty
+                      ? 'Read At: Not seen yet'
+                      : 'Read At: ${MyDateUtil.getMessageTime(context: context, time: widget.message.read)}',
+                  onTap: () {}),
             ],
           );
         });
@@ -336,7 +336,7 @@ class _MessageCardState extends State<MessageCard> {
                     onPressed: () {
                       //hide alert dialog
                       Navigator.pop(context);
-                      // APIs.updateMessage(widget.message, updatedMsg);
+                      APIs.updateMessage(widget.message, updatedMsg);
                     },
                     child: const Text(
                       'Update',
