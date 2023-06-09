@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     APIs.getSelfInfo();
 
-    //for updating user active status according to lifecycle events , On Realtime. 
+    //for updating user active status according to lifecycle events , On Realtime.
     //resume -- active or online
     //pause  -- inactive or offline
     SystemChannels.lifecycle.setMessageHandler((message) {
@@ -161,31 +161,31 @@ class _HomeScreenState extends State<HomeScreen> {
                         //if some or all data is loaded then show it
                         case ConnectionState.active:
                         case ConnectionState.done:
-                        final data = snapshot.data?.docs;
-                        _list = data
-                                ?.map((e) => ChatUser.fromJson(e.data()))
-                                .toList() ??
-                            [];
+                          final data = snapshot.data?.docs;
+                          _list = data
+                                  ?.map((e) => ChatUser.fromJson(e.data()))
+                                  .toList() ??
+                              [];
 
-                        if (_list.isNotEmpty) {
-                          return ListView.builder(
-                              itemCount: _isSearching
-                                  ? _searchList.length
-                                  : _list.length,
-                              padding: EdgeInsets.only(top: mq.height * .01),
-                              physics: const BouncingScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return ChatUserCard(
-                                    user: _isSearching
-                                        ? _searchList[index]
-                                        : _list[index]);
-                              });
-                        } else {
-                          return const Center(
-                            child: Text('No Connections Found!',
-                                style: TextStyle(fontSize: 20)),
-                          );
-                        }
+                          if (_list.isNotEmpty) {
+                            return ListView.builder(
+                                itemCount: _isSearching
+                                    ? _searchList.length
+                                    : _list.length,
+                                padding: EdgeInsets.only(top: mq.height * .01),
+                                physics: const BouncingScrollPhysics(),
+                                itemBuilder: (context, index) {
+                                  return ChatUserCard(
+                                      user: _isSearching
+                                          ? _searchList[index]
+                                          : _list[index]);
+                                });
+                          } else {
+                            return const Center(
+                              child: Text('No Connections Found!',
+                                  style: TextStyle(fontSize: 20)),
+                            );
+                          }
                       }
                       // return Container();
                     },
@@ -255,6 +255,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           if (!value) {
                             Dialogs.showSnackbar(
                                 context, 'User does not Exists!');
+                          } else {
+                            Dialogs.showSnackbar(
+                                context, 'User add successfully!');
                           }
                         });
                       }
