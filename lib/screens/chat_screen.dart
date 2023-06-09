@@ -3,11 +3,13 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chat_app/api/apis.dart';
+import 'package:chat_app/helper/my_date_util.dart';
 import 'package:chat_app/main.dart';
 import 'package:chat_app/models/chart_user.dart';
 import 'package:chat_app/models/message.dart';
 import 'package:chat_app/screens/view_profile_screen.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -62,7 +64,7 @@ class _ChatScreenState extends State<ChatScreen> {
               children: [
                 Expanded(
                   child: StreamBuilder(
-                    // stream: APIs.getAllMessages(widget.user),
+                    stream: APIs.getAllMessages(widget.user),
                     builder: (context, snapshot) {
                       switch (snapshot.connectionState) {
                         //if data is loading
@@ -73,11 +75,11 @@ class _ChatScreenState extends State<ChatScreen> {
                         //if some or all data is loaded then show it
                         case ConnectionState.active:
                         case ConnectionState.done:
-                          // final data = snapshot.data?.docs;
-                          // _list = data
-                          //         ?.map((e) => Message.fromJson(e.data()))
-                          //         .toList() ??
-                          //     [];
+                          final data = snapshot.data?.docs;
+                          _list = data
+                                  ?.map((e) => Message.fromJson(e.data()))
+                                  .toList() ??
+                              [];
 
                           if (_list.isNotEmpty) {
                             return ListView.builder(
@@ -141,11 +143,11 @@ class _ChatScreenState extends State<ChatScreen> {
           MaterialPageRoute(
               builder: (_) => ViewProfileScreen(user: widget.user)));
     }, child: StreamBuilder(
-        // stream: APIs.getUserInfo(widget.user),
+        stream: APIs.getUserInfo(widget.user),
         builder: (context, snapshot) {
-      // final data = snapshot.data?.docs;
-      // final list =
-      //     data?.map((e) => ChatUser.fromJson(e.data())).toList() ?? [];
+      final data = snapshot.data?.docs;
+      final list =
+          data?.map((e) => ChatUser.fromJson(e.data())).toList() ?? [];
 
       return Row(
         children: [
@@ -154,18 +156,18 @@ class _ChatScreenState extends State<ChatScreen> {
               onPressed: () => Navigator.pop(context),
               icon: const Icon(Icons.arrow_back, color: Colors.black54)),
 
-          //user profile picture
-          // ClipRRect(
-          //   borderRadius: BorderRadius.circular(mq.height * .03),
-          //   child: CachedNetworkImage(
-          //     width: mq.height * .05,
-          //     height: mq.height * .05,
-          //     imageUrl:
-          //         list.isNotEmpty ? list[0].image : widget.user.image,
-          //     errorWidget: (context, url, error) => const CircleAvatar(
-          //         child: Icon(CupertinoIcons.person)),
-          //   ),
-          // ),
+          // user profile picture
+          ClipRRect(
+            borderRadius: BorderRadius.circular(mq.height * .03),
+            child: CachedNetworkImage(
+              width: mq.height * .05,
+              height: mq.height * .05,
+              imageUrl:
+                  list.isNotEmpty ? list[0].image : widget.user.image,
+              errorWidget: (context, url, error) => const CircleAvatar(
+                  child: Icon(CupertinoIcons.person)),
+            ),
+          ),
 
           //for adding some space
           const SizedBox(width: 10),
@@ -176,28 +178,28 @@ class _ChatScreenState extends State<ChatScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               //user name
-              // Text(list.isNotEmpty ? list[0].name : widget.user.name,
-              //     style: const TextStyle(
-              //         fontSize: 16,
-              //         color: Colors.black87,
-              //         fontWeight: FontWeight.w500)),
+              Text(list.isNotEmpty ? list[0].name : widget.user.name,
+                  style: const TextStyle(
+                      fontSize: 16,
+                      color: Colors.black87,
+                      fontWeight: FontWeight.w500)),
 
               //for adding some space
               const SizedBox(height: 2),
 
               //last seen time of user
-              // Text(
-              //     list.isNotEmpty
-              //         ? list[0].isOnline
-              //             ? 'Online'
-              //             : MyDateUtil.getLastActiveTime(
-              //                 context: context,
-              //                 lastActive: list[0].lastActive)
-              //         : MyDateUtil.getLastActiveTime(
-              //             context: context,
-              //             lastActive: widget.user.lastActive),
-              //     style: const TextStyle(
-              //         fontSize: 13, color: Colors.black54)),
+              Text(
+                  list.isNotEmpty
+                      ? list[0].isOnline
+                          ? 'Online'
+                          : MyDateUtil.getLastActiveTime(
+                              context: context,
+                              lastActive: list[0].lastActive)
+                      : MyDateUtil.getLastActiveTime(
+                          context: context,
+                          lastActive: widget.user.lastActive),
+                  style: const TextStyle(
+                      fontSize: 13, color: Colors.black54)),
             ],
           )
         ],

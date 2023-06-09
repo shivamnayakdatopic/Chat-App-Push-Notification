@@ -2,8 +2,10 @@ import 'dart:developer';
 
 import 'package:chat_app/api/apis.dart';
 import 'package:chat_app/helper/dialogs.dart';
+import 'package:chat_app/main.dart';
 import 'package:chat_app/models/chart_user.dart';
 import 'package:chat_app/screens/profile_screen.dart';
+import 'package:chat_app/widgets/chat_user_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -130,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
           //body
           body: StreamBuilder(
-            // stream: APIs.getMyUsersId(),
+            stream: APIs.getMyUsersId(),
 
             //get id of only known users
             builder: (context, snapshot) {
@@ -144,8 +146,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 case ConnectionState.active:
                 case ConnectionState.done:
                   return StreamBuilder(
-                    // stream: APIs.getAllUsers(
-                    //     snapshot.data?.docs.map((e) => e.id).toList() ?? []),
+                    stream: APIs.getAllUsers(
+                        snapshot.data?.docs.map((e) => e.id).toList() ?? []),
 
                     //get only those user, who's ids are provided
                     builder: (context, snapshot) {
@@ -159,31 +161,31 @@ class _HomeScreenState extends State<HomeScreen> {
                         //if some or all data is loaded then show it
                         case ConnectionState.active:
                         case ConnectionState.done:
-                        // final data = snapshot.data?.docs;
-                        // _list = data
-                        //         ?.map((e) => ChatUser.fromJson(e.data()))
-                        //         .toList() ??
-                        //     [];
+                        final data = snapshot.data?.docs;
+                        _list = data
+                                ?.map((e) => ChatUser.fromJson(e.data()))
+                                .toList() ??
+                            [];
 
-                        // if (_list.isNotEmpty) {
-                        //   return ListView.builder(
-                        //       itemCount: _isSearching
-                        //           ? _searchList.length
-                        //           : _list.length,
-                        //       padding: EdgeInsets.only(top: mq.height * .01),
-                        //       physics: const BouncingScrollPhysics(),
-                        //       itemBuilder: (context, index) {
-                        //         return ChatUserCard(
-                        //             user: _isSearching
-                        //                 ? _searchList[index]
-                        //                 : _list[index]);
-                        //       });
-                        // } else {
-                        //   return const Center(
-                        //     child: Text('No Connections Found!',
-                        //         style: TextStyle(fontSize: 20)),
-                        //   );
-                        // }
+                        if (_list.isNotEmpty) {
+                          return ListView.builder(
+                              itemCount: _isSearching
+                                  ? _searchList.length
+                                  : _list.length,
+                              padding: EdgeInsets.only(top: mq.height * .01),
+                              physics: const BouncingScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return ChatUserCard(
+                                    user: _isSearching
+                                        ? _searchList[index]
+                                        : _list[index]);
+                              });
+                        } else {
+                          return const Center(
+                            child: Text('No Connections Found!',
+                                style: TextStyle(fontSize: 20)),
+                          );
+                        }
                       }
                       return Container();
                     },
