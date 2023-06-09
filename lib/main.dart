@@ -5,6 +5,9 @@ import 'package:chat_app/screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_notification_channel/flutter_notification_channel.dart';
+import 'package:flutter_notification_channel/notification_importance.dart';
+import 'package:flutter_notification_channel/notification_visibility.dart';
 
 //global object for accessing device screen size, This is use for media query.
 late Size mq;
@@ -51,11 +54,17 @@ class MyApp extends StatelessWidget {
 
 _initializeFirebase() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
-  // var result = await FlutterNotificationChannel.registerNotificationChannel(
-  //     description: 'For Showing Message Notification',
-  //     id: 'chats',
-  //     importance: NotificationImportance.IMPORTANCE_HIGH,
-  //     name: 'Chats');
-  // log('\nNotification Channel Result: $result');
+// Create firebase notification channel.
+  var result = await FlutterNotificationChannel.registerNotificationChannel(
+    description: 'For Showing Message Notification',
+    id: 'chats', // On the basis of this Id we send Notification.
+    importance: NotificationImportance.IMPORTANCE_HIGH,
+    name: 'Chats',
+    visibility: NotificationVisibility.VISIBILITY_PUBLIC,
+    allowBubbles: true,
+    enableVibration: true,
+    enableSound: true,
+    showBadge: true,
+  );
+  log('\nNotification Channel Result: $result');
 }
