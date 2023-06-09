@@ -8,6 +8,7 @@ import 'package:chat_app/main.dart';
 import 'package:chat_app/models/message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 
 // for showing single message details
 class MessageCard extends StatefulWidget {
@@ -191,6 +192,7 @@ class _MessageCardState extends State<MessageCard> {
                           color: Colors.blue, size: 26),
                       name: 'Copy Text',
                       onTap: () async {
+                        // Implement message copy features. 
                         await Clipboard.setData(
                                 ClipboardData(text: widget.message.msg))
                             .then((value) {
@@ -209,16 +211,16 @@ class _MessageCardState extends State<MessageCard> {
                       onTap: () async {
                         try {
                           log('Image Url: ${widget.message.msg}');
-                          // await GallerySaver.saveImage(widget.message.msg,
-                          //         albumName: 'We Chat')
-                          //     .then((success) {
-                          //   //for hiding bottom sheet
-                          //   Navigator.pop(context);
-                          //   if (success != null && success) {
-                          //     Dialogs.showSnackbar(
-                          //         context, 'Image Successfully Saved!');
-                          //   }
-                          // });
+                          await GallerySaver.saveImage(widget.message.msg,
+                                  albumName: 'We Chat')
+                              .then((success) {
+                            //for hiding bottom sheet
+                            Navigator.pop(context);
+                            if (success != null && success) {
+                              Dialogs.showSnackbar(
+                                  context, 'Image Successfully Saved!');
+                            }
+                          });
                         } catch (e) {
                           log('ErrorWhileSavingImg: $e');
                         }
@@ -254,6 +256,7 @@ class _MessageCardState extends State<MessageCard> {
                       await APIs.deleteMessage(widget.message).then((value) {
                         //for hiding bottom sheet
                         Navigator.pop(context);
+                        Dialogs.showSnackbar(context, 'Message Deleted');
                       });
                     }),
 
