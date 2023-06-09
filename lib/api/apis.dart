@@ -44,7 +44,7 @@ class APIs {
     await fMessaging.getToken().then((token) {
       if (token != null) {
         me.pushToken = token;
-        print("Push Token-- $token");
+        print("####-- Push Token-- $token");
       }
     });
 
@@ -59,35 +59,35 @@ class APIs {
     // });
   }
 
-//   // for sending push notification
-//   static Future<void> sendPushNotification(
-//       ChatUser chatUser, String msg) async {
-//     try {
-//       final body = {
-//         "to": chatUser.pushToken,
-//         "notification": {
-//           "title": me.name, //our name should be send
-//           "body": msg,
-//           "android_channel_id": "chats"
-//         },
-//         // "data": {
-//         //   "some_data": "User ID: ${me.id}",
-//         // },
-//       };
+  // for sending push notification
+  static Future<void> sendPushNotification(
+      ChatUser chatUser, String msg) async {
+    try {
+      final body = {
+        "to": chatUser.pushToken,
+        "notification": {
+          "title": me.name, //our name should be send
+          "body": msg,
+          "android_channel_id": "chats"
+        },
+        // "data": {
+        //   "some_data": "User ID: ${me.id}",
+        // },
+      };
 
-//       var res = await post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
-//           headers: {
-//             HttpHeaders.contentTypeHeader: 'application/json',
-//             HttpHeaders.authorizationHeader:
-//                 'key=AAAAQ0Bf7ZA:APA91bGd5IN5v43yedFDo86WiSuyTERjmlr4tyekbw_YW6JrdLFblZcbHdgjDmogWLJ7VD65KGgVbETS0Px7LnKk8NdAz4Z-AsHRp9WoVfArA5cNpfMKcjh_MQI-z96XQk5oIDUwx8D1'
-//           },
-//           body: jsonEncode(body));
-//       log('Response status: ${res.statusCode}');
-//       log('Response body: ${res.body}');
-//     } catch (e) {
-//       log('\nsendPushNotificationE: $e');
-//     }
-//   }
+      var res = await post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
+          headers: {
+            HttpHeaders.contentTypeHeader: 'application/json',
+            HttpHeaders.authorizationHeader:
+                'key=AAAAPixKqPI:APA91bHnNR8UR2H4ljhnVjjeDN-kpe4JPQbeJn-tldqGs9sACR3KClrkuuVWt4xb5m8vLgVxcixi3v0AQWxvFQ1TyXKwoyXPR3KIDu8_3UhDZplWE7sCmkFor7K0Hst89COUqtLu2xlc'
+          },
+          body: jsonEncode(body));
+      log('Response status: ${res.statusCode}');
+      log('Response body: ${res.body}');
+    } catch (e) {
+      log('\nsendPushNotificationE: $e');
+    }
+  }
 
   // for checking if user exists or not?
   static Future<bool> userExists() async {
@@ -270,7 +270,7 @@ class APIs {
   // for sending message to other user
   static Future<void> sendMessage(
       ChatUser chatUser, String msg, Type type) async {
-    //message sending time (also used as id). we are using time as a ID. 
+    //message sending time (also used as id). we are using time as a ID.
     final time = DateTime.now().millisecondsSinceEpoch.toString();
 
     //message to send (user details)
@@ -284,8 +284,8 @@ class APIs {
 
     final ref = firestore
         .collection('chats/${getConversationID(chatUser.id)}/messages/');
-    // await ref.doc(time).set(message.toJson()).then((value) =>
-    //     sendPushNotification(chatUser, type == Type.text ? msg : 'image'));
+    await ref.doc(time).set(message.toJson()).then((value) =>
+        sendPushNotification(chatUser, type == Type.text ? msg : 'image'));
   }
 
   //update read status of message
