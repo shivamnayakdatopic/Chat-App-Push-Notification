@@ -8,6 +8,7 @@ import 'package:chat_app/main.dart';
 import 'package:chat_app/models/chart_user.dart';
 import 'package:chat_app/models/message.dart';
 import 'package:chat_app/screens/view_profile_screen.dart';
+import 'package:chat_app/widgets/message_card.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -89,7 +90,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                 padding: EdgeInsets.only(top: mq.height * .01),
                                 physics: const BouncingScrollPhysics(),
                                 itemBuilder: (context, index) {
-                                  // return MessageCard(message: _list[index]);
+                                  return MessageCard(message: _list[index]);
                                 });
                           } else {
                             return const Center(
